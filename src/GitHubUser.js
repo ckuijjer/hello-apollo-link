@@ -45,4 +45,4 @@ const GithubUser = ({ data }) => {
   }
 };
 
-export default graphql(QUERY, { options: { variables: { login } } })(GithubUser);
+export default graphql(QUERY, { options: ({ login }) => ({ variables: { login } }) })(GithubUser);
