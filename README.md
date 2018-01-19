@@ -6,7 +6,7 @@ It retrieves _ckuijjer_'s github profile and repositories either via the GraphQL
 
 To play with this
 
-Create a `.env.local` in the root folder containing a [GitHub Personal access token](https://github.com/settings/tokens)
+Create a `.env.local` in the root folder containing a [GitHub Personal access token](https://github.com/settings/tokens). It only needs the _public_repo_ scope.
 
 ```
 REACT_APP_PERSONAL_ACCESS_TOKEN=XXX
