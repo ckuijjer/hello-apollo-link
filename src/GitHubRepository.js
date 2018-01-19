@@ -1,9 +1,9 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const GitHubRepository = ({ repository }) => {
   const { name, url } = repository;
+
   return (
     <div style={{ marginBottom: 16 }}>
       <div>Name: {name}</div>
