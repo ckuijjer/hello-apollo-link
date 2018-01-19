@@ -36,7 +36,9 @@ const client = new ApolloClient({
 
 const App = () => (
   <ApolloProvider client={client}>
-    <GitHubUser login="ckuijjer" />
+    <div style={{ margin: 30 }}>
+      <GitHubUser login="ckuijjer" />
+    </div>
   </ApolloProvider>
 );
 
