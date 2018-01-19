@@ -7,8 +7,8 @@ import Loading from './Loading';
 import GitHubRepository from './GitHubRepository';
 
 const QUERY = gql`
-  query {
-    user(login:"ckuijjer") {
+  query GithubUser($login: String!) {
+    user(login: $login) {
       name
       login
       bio
@@ -45,4 +45,4 @@ const GithubUser = ({ data }) => {
   }
 };
 
-export default graphql(QUERY)(GithubUser);
+export default graphql(QUERY, { options: { variables: { login } } })(GithubUser);
