@@ -1,9 +1,11 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { filter } from 'graphql-anywhere';
 
 import Loading from './Loading';
 import Logger from './Logger';
+import GitHubRepository from './GitHubRepository';
 
 const QUERY = gql`
   query {
@@ -15,14 +17,17 @@ const QUERY = gql`
       repositories(first: 10) {
         edges {
           node {
-            name
-            url
+            id
+            ...GitHubRepository
           }
         }
       }
     }
   }
+  ${GitHubRepository.fragments.repository}  
 `;
+
+// export default () => <Logger data={QUERY} />;
 
 
 const GithubUser = ({ data }) => {
@@ -36,7 +41,9 @@ const GithubUser = ({ data }) => {
         <div>Login: {data.user.login}</div>
         <div>Bio: {data.user.bio}</div>
         <h2>Repositories</h2>
-        <Logger data={data} />
+        {data.user.repositories.edges.map(({ node }) =>
+          <GitHubRepository key={node.id} repository={filter(GitHubRepository.fragments.repository, node)} />
+        )}
       </div>
     )
   }
