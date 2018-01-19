@@ -7,6 +7,7 @@
     "apollo-link-rest": "^0.0.1-alpha.1",
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
+    "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",

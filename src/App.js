@@ -4,9 +4,7 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
-import MyAppComponent from './MyAppComponent';
-
-console.log('🔑', process.env.REACT_APP_PERSONAL_ACCESS_TOKEN)
+import GithubUser from './GithubUser';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -20,7 +18,7 @@ const client = new ApolloClient({
 
 const App = () => (
   <ApolloProvider client={client}>
-    <MyAppComponent />
+    <GithubUser login="ckuijjer" />
   </ApolloProvider>
 );
 
