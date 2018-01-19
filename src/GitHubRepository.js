@@ -2,8 +2,6 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import Logger from './Logger';
-
 const GitHubRepository = ({ repository }) => {
   const { name, url } = repository;
   return (

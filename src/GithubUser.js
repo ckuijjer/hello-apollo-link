@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import { filter } from 'graphql-anywhere';
 
 import Loading from './Loading';
-import Logger from './Logger';
 import GitHubRepository from './GitHubRepository';
 
 const QUERY = gql`
@@ -26,9 +25,6 @@ const QUERY = gql`
   }
   ${GitHubRepository.fragments.repository}  
 `;
-
-// export default () => <Logger data={QUERY} />;
-
 
 const GithubUser = ({ data }) => {
   if (data.loading) {
