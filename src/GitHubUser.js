@@ -32,13 +32,12 @@ const QUERY = gql`
 
 const REST_QUERY = gql`
   query GithubUser($login: String!) {
-    #user @rest(path: "/users/:login", params: { login: $login }, type: "User") {
-    user @rest(path: "/users/ckuijjer", type: "User") {
+    user(login: $login) @rest(path: "/users/:login", type: "User") {
       name
-      login
+      login @export(as: "login")
       bio
 
-      repositories @rest(path: "/users/ckuijjer/repos", type: Repository) {
+      repositories @rest(path: "/users/:login/repos", type: Repository) {
         id
         ...GitHubRepository
       }
