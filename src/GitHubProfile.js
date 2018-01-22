@@ -6,6 +6,7 @@ import { path } from 'ramda';
 
 import handleLoadingAndErrors from './handleLoadingAndErrors';
 import GitHubRepository from './GitHubRepository';
+import GitHubUser from './GitHubUser';
 import Logger from './Logger';
 
 const USE_REST = true;
@@ -33,9 +34,8 @@ const QUERY = gql`
 const REST_QUERY = gql`
   query GitHubProfile($login: String!) {
     user(login: $login) @rest(path: "/users/:login", type: "User") {
-      name
       login @export(as: "login")
-      bio
+      ...GitHubUser
 
       repositories @rest(path: "/users/:login/repos", type: Repository) {
         id
@@ -44,6 +44,7 @@ const REST_QUERY = gql`
     }
   }
   ${GitHubRepository.fragments.repository}
+  ${GitHubUser.fragments.user}
 `;
 
 const query = USE_REST ? REST_QUERY : QUERY;
@@ -59,9 +60,7 @@ const GitHubProfile = ({ data }) => (
   <div>
     <h1>{title}</h1>
     <h2>User</h2>
-    <div>Name: {data.user.name}</div>
-    <div>Login: {data.user.login}</div>
-    <div>Bio: {data.user.bio}</div>
+    <GitHubUser {...filter(GitHubUser.fragments.user, data.user)} />
 
     <h2>Repositories</h2>
     {getEdges(data)
