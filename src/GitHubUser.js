@@ -32,8 +32,8 @@ const QUERY = gql`
 
 const REST_QUERY = gql`
   query GithubUser($login: String!) {
-    user @rest(path: "/users/:login", params: { login: $login }, type: "User") {
-      #user @rest(path: "/users/ckuijjer", type: "User") {
+    #user @rest(path: "/users/:login", params: { login: $login }, type: "User") {
+    user @rest(path: "/users/ckuijjer", type: "User") {
       name
       login
       bio
