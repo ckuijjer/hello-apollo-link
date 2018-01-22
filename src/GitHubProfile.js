@@ -37,7 +37,7 @@ const REST_QUERY = gql`
       login @export(as: "login")
       ...GitHubUser
 
-      repositories @rest(path: "/users/:login/repos", type: Repository) {
+      repositories @rest(path: "/users/:login/repos", type: "Repository") {
         id
         ...GitHubRepository
       }
