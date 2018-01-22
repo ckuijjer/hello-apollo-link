@@ -14,9 +14,8 @@ const USE_REST = true;
 const QUERY = gql`
   query GitHubProfile($login: String!) {
     user(login: $login) {
-      name
       login
-      bio
+      ...GitHubUser
 
       repositories(first: 10) {
         edges {
@@ -29,6 +28,7 @@ const QUERY = gql`
     }
   }
   ${GitHubRepository.fragments.repository}
+  ${GitHubUser.fragments.user}
 `;
 
 const REST_QUERY = gql`
@@ -56,26 +56,28 @@ const title = USE_REST
   ? 'Using the RESTful GitHub v3 API'
   : 'Using the GraphQL GitHub v4';
 
-const GitHubProfile = ({ data }) => (
-  <div>
-    <h1>{title}</h1>
-    <h2>User</h2>
-    <GitHubUser {...filter(GitHubUser.fragments.user, data.user)} />
+const GitHubProfile = ({ data }) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      <h2>User</h2>
+      <GitHubUser {...filter(GitHubUser.fragments.user, data.user)} />
 
-    <h2>Repositories</h2>
-    {getEdges(data)
-      .map(getNode)
-      .map(node => (
-        <GitHubRepository
-          key={node.id}
-          repository={filter(GitHubRepository.fragments.repository, node)}
-        />
-      ))}
+      <h2>Repositories</h2>
+      {getEdges(data)
+        .map(getNode)
+        .map(node => (
+          <GitHubRepository
+            key={node.id}
+            repository={filter(GitHubRepository.fragments.repository, node)}
+          />
+        ))}
 
-    <h2>Logger</h2>
-    <Logger data={data} />
-  </div>
-);
+      <h2>Logger</h2>
+      <Logger data={data} />
+    </div>
+  );
+};
 
 export default graphql(query, {
   options: ({ login }) => ({ variables: { login } }),
