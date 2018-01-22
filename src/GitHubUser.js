@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 const GitHubUser = ({ name, login, bio }) => {
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div>
       <div>Name: {name}</div>
       <div>Login: {login}</div>
       <div>Bio: {bio}</div>
