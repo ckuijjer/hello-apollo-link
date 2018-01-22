@@ -7,9 +7,11 @@ const GitHubRepository = ({ repository }) => {
   return (
     <div style={{ marginBottom: 16 }}>
       <div>Name: {name}</div>
-      <div>Url: <a href={url}>{url}</a></div>
-    </div >
-  )
+      <div>
+        Url: <a href={url}>{url}</a>
+      </div>
+    </div>
+  );
 };
 
 GitHubRepository.fragments = {
@@ -18,7 +20,7 @@ GitHubRepository.fragments = {
       name
       url
     }
-  `
-}
+  `,
+};
 
 export default GitHubRepository;

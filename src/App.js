@@ -9,29 +9,26 @@ import { ApolloProvider } from 'react-apollo';
 import GitHubUser from './GitHubUser';
 
 const authenticationHeader = {
-  Authorization: `token ${process.env.REACT_APP_PERSONAL_ACCESS_TOKEN}`
+  Authorization: `token ${process.env.REACT_APP_PERSONAL_ACCESS_TOKEN}`,
 };
 
 const restLink = new RestLink({
   uri: 'https://api.github.com',
   headers: {
-    ...authenticationHeader
-  }
+    ...authenticationHeader,
+  },
 });
 
 const httpLink = new HttpLink({
   uri: 'https://api.github.com/graphql',
   headers: {
-    ...authenticationHeader
-  }
+    ...authenticationHeader,
+  },
 });
 
 const client = new ApolloClient({
-  link: ApolloLink.from([
-    restLink,
-    httpLink
-  ]),
-  cache: new InMemoryCache()
+  link: ApolloLink.from([restLink, httpLink]),
+  cache: new InMemoryCache(),
 });
 
 const App = () => (
