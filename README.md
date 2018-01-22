@@ -12,4 +12,4 @@ Create a `.env.local` in the root folder containing a [GitHub Personal access to
 REACT_APP_PERSONAL_ACCESS_TOKEN=XXX
 ```
 
-Switch between v3 and v4 of the API by changing `USE_REST` constant in _GitHubUser.js_
+Switch between v3 and v4 of the API by changing `USE_REST` constant in _GitHubProfile.js_

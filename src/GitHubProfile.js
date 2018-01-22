@@ -11,7 +11,7 @@ import Logger from './Logger';
 const USE_REST = true;
 
 const QUERY = gql`
-  query GithubUser($login: String!) {
+  query GitHubProfile($login: String!) {
     user(login: $login) {
       name
       login
@@ -31,7 +31,7 @@ const QUERY = gql`
 `;
 
 const REST_QUERY = gql`
-  query GithubUser($login: String!) {
+  query GitHubProfile($login: String!) {
     user(login: $login) @rest(path: "/users/:login", type: "User") {
       name
       login @export(as: "login")
@@ -55,7 +55,7 @@ const title = USE_REST
   ? 'Using the RESTful GitHub v3 API'
   : 'Using the GraphQL GitHub v4';
 
-const GithubUser = ({ data }) => (
+const GitHubProfile = ({ data }) => (
   <div>
     <h1>{title}</h1>
     <h2>User</h2>
@@ -80,4 +80,4 @@ const GithubUser = ({ data }) => (
 
 export default graphql(query, {
   options: ({ login }) => ({ variables: { login } }),
-})(handleLoadingAndErrors(GithubUser));
+})(handleLoadingAndErrors(GitHubProfile));
