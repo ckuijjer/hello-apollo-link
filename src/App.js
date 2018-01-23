@@ -35,7 +35,7 @@ const client = new ApolloClient({
 class App extends React.Component {
   state = {
     user: 'ckuijjer',
-    method: 'rest',
+    method: 'graphql',
   };
 
   handleSetQueryInputs = ({ user, method }) => {
@@ -51,7 +51,7 @@ class App extends React.Component {
             method={this.state.method}
             onRefresh={this.handleSetQueryInputs}
           />
-          <GitHubProfile login={this.state.user} method={this.state.method} />
+          <GitHubProfile user={this.state.user} method={this.state.method} />
         </div>
       </ApolloProvider>
     );
