@@ -41,6 +41,13 @@ const REST_QUERY = gql`
         id
         ...GitHubRepository
       }
+
+      following @rest(path: "/users/:login/following", type: "Followee") {
+        login @export(as: "followee")
+        user(login: $followee) @rest(path: "/users/:followee", type: "User") {
+          ...GitHubUser
+        }
+      }
     }
   }
   ${GitHubRepository.fragments.repository}
@@ -48,10 +55,14 @@ const REST_QUERY = gql`
 `;
 
 const query = USE_REST ? REST_QUERY : QUERY;
-const getEdges = path(
+const getRepositoryEdges = path(
   USE_REST ? ['user', 'repositories'] : ['user', 'repositories', 'edges']
 );
+const getFollowingEdges = path(
+  USE_REST ? ['user', 'following'] : ['user', 'following', 'edges']
+);
 const getNode = path(USE_REST ? [] : ['node']);
+
 const title = USE_REST
   ? 'Using the RESTful GitHub v3 API'
   : 'Using the GraphQL GitHub v4';
@@ -64,12 +75,22 @@ const GitHubProfile = ({ data }) => {
       <GitHubUser {...filter(GitHubUser.fragments.user, data.user)} />
 
       <h2>Repositories</h2>
-      {getEdges(data)
+      {getRepositoryEdges(data)
         .map(getNode)
         .map(node => (
           <GitHubRepository
             key={node.id}
             repository={filter(GitHubRepository.fragments.repository, node)}
+          />
+        ))}
+
+      <h2>Following</h2>
+      {getFollowingEdges(data)
+        .map(getNode)
+        .map(node => (
+          <GitHubUser
+            key={node.login}
+            {...filter(GitHubUser.fragments.user, node.user)}
           />
         ))}
 
