@@ -34,6 +34,7 @@ const QUERY = gql`
 const REST_QUERY = gql`
   query GitHubProfile($login: String!) {
     user(login: $login) @rest(path: "/users/:login", type: "User") {
+      id
       login @export(as: "login")
       ...GitHubUser
 
@@ -43,8 +44,10 @@ const REST_QUERY = gql`
       }
 
       following @rest(path: "/users/:login/following", type: "Followee") {
+        id
         login @export(as: "followee")
         user(login: $followee) @rest(path: "/users/:followee", type: "User") {
+          id
           ...GitHubUser
         }
       }
